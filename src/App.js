@@ -15,7 +15,7 @@ class Phponebook extends Component {
   };
 
   componentDidMount() {
-    console.log('App componentDidMount');
+    // console.log('App componentDidMount');
 
     const contacts = localStorage.getItem('contacts');
     const passedContacts = JSON.parse(contacts);
@@ -26,13 +26,13 @@ class Phponebook extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('App componentDidUpdate');
+    // console.log('App componentDidUpdate');
 
     const nextContacts = this.state.contacts;
     const prevContacts = prevState.contacts;
 
     if (nextContacts !== prevContacts) {
-      console.log('Обновилось поле contacts, записываю contacts в хранилище');
+      // console.log('Обновилось поле contacts, записываю contacts в хранилище');
       localStorage.setItem('contacts', JSON.stringify(nextContacts));
     }
   }
