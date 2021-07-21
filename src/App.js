@@ -14,6 +14,29 @@ class Phponebook extends Component {
     filter: '',
   };
 
+  componentDidMount() {
+    console.log('App componentDidMount');
+
+    const contacts = localStorage.getItem('contacts');
+    const passedContacts = JSON.parse(contacts);
+
+    if (passedContacts) {
+      this.setState({ contacts: passedContacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('App componentDidUpdate');
+
+    const nextContacts = this.state.contacts;
+    const prevContacts = prevState.contacts;
+
+    if (nextContacts !== prevContacts) {
+      console.log('Обновилось поле contacts, записываю contacts в хранилище');
+      localStorage.setItem('contacts', JSON.stringify(nextContacts));
+    }
+  }
+
   addContact = ({ name, number }) => {
     const contact = {
       name,
@@ -21,13 +44,13 @@ class Phponebook extends Component {
       number,
     };
 
+    const normalazedNameContact = contact.name.toLowerCase();
     const errorName = this.state.contacts.filter(
-      contact => contact.name === name,
+      contact => normalazedNameContact === name.toLowerCase(),
     );
 
     if (errorName.length) {
       toast.error(`${name} is already in contacts`);
-      // alert(`${name} is already in contacts`);
     } else {
       this.setState(({ contacts }) => ({
         contacts: [contact, ...contacts],
