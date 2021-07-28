@@ -8,7 +8,7 @@ import Container from './components/Container';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-class Phponebook extends Component {
+class Phonebook extends Component {
   state = {
     contacts: [],
     filter: '',
@@ -44,13 +44,13 @@ class Phponebook extends Component {
       number,
     };
 
-    const normalazedNameContact = contact.name.toLowerCase();
     const errorName = this.state.contacts.filter(
-      contact => normalazedNameContact === name.toLowerCase(),
+      contact => contact.name === name,
     );
 
     if (errorName.length) {
       toast.error(`${name} is already in contacts`);
+      // alert(`${name} is already in contacts`);
     } else {
       this.setState(({ contacts }) => ({
         contacts: [contact, ...contacts],
@@ -69,10 +69,10 @@ class Phponebook extends Component {
   filterContact = () => {
     const { contacts, filter } = this.state;
 
-    const normalazedFilter = filter.toLowerCase();
+    const normalizedFilter = filter.toLowerCase();
 
     return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalazedFilter),
+      contact.name.toLowerCase().includes(normalizedFilter),
     );
   };
 
@@ -107,4 +107,4 @@ class Phponebook extends Component {
   }
 }
 
-export default Phponebook;
+export default Phonebook;
